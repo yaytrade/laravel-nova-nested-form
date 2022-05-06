@@ -1,6 +1,6 @@
 <?php
 
-namespace Yassi\NestedForm;
+namespace Handleglobal\NestedForm;
 
 use function GuzzleHttp\json_encode;
 use Illuminate\Support\Str;
@@ -199,6 +199,26 @@ class NestedForm extends Field implements RelatableField
         // Nova ^3.3.x need this to fix cannot add relation on create mode
         if(get_class(app(NovaRequest::class)) !== "Laravel\Nova\Http\Requests\GlobalSearchRequest")
             $this->resolve(app(NovaRequest::class)->model());
+    }
+
+    /**
+     * Get the relationship name.
+     *
+     * @return string
+     */
+    public function relationshipName()
+    {
+//        return $this->viaRelationship;
+    }
+
+    /**
+     * Get the relationship type.
+     *
+     * @return string
+     */
+    public function relationshipType()
+    {
+//        return $this->getRelationshipType();
     }
 
     /**
@@ -589,7 +609,7 @@ class NestedForm extends Field implements RelatableField
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize() : array
     {
         return array_merge(
             parent::jsonSerialize(),

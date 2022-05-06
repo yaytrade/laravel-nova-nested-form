@@ -1,6 +1,6 @@
 <?php
 
-namespace Yassi\NestedForm;
+namespace Handleglobal\NestedForm;
 
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Nova\Fields\ID;
@@ -10,7 +10,7 @@ class NestedFormChild extends NestedFormSchema
 
     /**
      * Name of the fields' fitler method.
-     * 
+     *
      * @var string
      */
     protected static $filterMethod = 'removeNonUpdateFields';

@@ -1,12 +1,11 @@
 let mix = require('laravel-mix')
 
+require('./mix')
+
 mix
   .setPublicPath('dist')
   .js('resources/js/field.js', 'js')
-  .webpackConfig({
-    resolve: {
-      alias: {
-        '@': path.resolve(__dirname, './vendor/laravel/nova/resources/js/')
-      }
-    }
-  })
+  .vue({ version: 3 })
+  .nova('handleglobal/nova-nested-form')
+
+module.exports = {};

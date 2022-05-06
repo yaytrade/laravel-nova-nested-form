@@ -1,9 +1,10 @@
 {
-  "name": "yassi/nova-nested-form",
+  "name": "handleglobal/nova-nested-form",
   "description": "A Laravel Nova package that allows you to create/update/delete nested related fields from a parent form.",
   "keywords": [
     "laravel",
     "nova",
+    "nova 4",
     "nested",
     "relationship",
     "form"
@@ -20,13 +21,13 @@
   ],
   "autoload": {
     "psr-4": {
-      "Yassi\\NestedForm\\": "src/"
+      "Handleglobal\\NestedForm\\": "src/"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "Yassi\\NestedForm\\FieldServiceProvider"
+        "Handleglobal\\NestedForm\\FieldServiceProvider"
       ]
     }
   },
@@ -36,6 +37,6 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require-dev": {
-    "laravel/nova": "^3.0"
+    "laravel/nova": "^4.0"
   }
 }

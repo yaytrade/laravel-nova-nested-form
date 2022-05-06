@@ -1,6 +1,6 @@
 <?php
 
-namespace Yassi\NestedForm;
+namespace Handleglobal\NestedForm;
 
 use Illuminate\Database\Eloquent\Model;
 use JsonSerializable;
@@ -10,27 +10,28 @@ use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
+use Laravel\Nova\Resource;
 use ReflectionMethod;
 
 class NestedFormSchema implements JsonSerializable
 {
     /**
      * Parent form instance.
-     * 
+     *
      * @var NestedForm
      */
     protected $parentForm;
 
     /**
      * Current model instance.
-     * 
+     *
      * @var Model
      */
     protected $model;
 
     /**
      * Current index.
-     * 
+     *
      * @var int|string
      */
     protected $index;
@@ -42,7 +43,7 @@ class NestedFormSchema implements JsonSerializable
 
     /**
      * Name of the fields' fitler method.
-     * 
+     *
      * @var string
      */
     protected static $filterMethod = 'removeNonCreationFields';
@@ -131,7 +132,7 @@ class NestedFormSchema implements JsonSerializable
     }
 
     /**
-     * Return the method reflection to filter 
+     * Return the method reflection to filter
      * the fields.
      */
     protected function filterFields()

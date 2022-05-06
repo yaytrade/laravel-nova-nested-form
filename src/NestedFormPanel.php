@@ -1,6 +1,6 @@
 <?php
 
-namespace Yassi\NestedForm;
+namespace Handleglobal\NestedForm;
 
 use Laravel\Nova\Panel;
 
@@ -8,7 +8,7 @@ class NestedFormPanel extends Panel
 {
     /**
      * Nested form.
-     * 
+     *
      * @var NestedForm
      */
     protected $nestedForm;
