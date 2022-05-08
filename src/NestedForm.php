@@ -455,10 +455,10 @@ class NestedForm extends Field implements RelatableField
     protected function deleteChildren(NovaRequest $request, $model, $children)
     {
         if ($this->getRelationshipType() === 'BelongsToMany') {
-            return (new ResourceDetachController)->handle($this->getDetachRequest($request, $model, $children));
+            return (new ResourceDetachController)->__invoke($this->getDetachRequest($request, $model, $children));
         }
 
-        return (new ResourceDestroyController)->handle($this->getDeleteRequest($request, $model, $children));
+        return (new ResourceDestroyController)->__invoke($this->getDeleteRequest($request, $model, $children));
     }
 
     /**

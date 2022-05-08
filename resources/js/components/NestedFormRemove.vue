@@ -1,11 +1,7 @@
 <template>
-    <nested-form-icon
-        v-if="field.children.length > field.min"
-        hover-color="danger"
-        @click="removeChild"
-    >
-        <icon class="cursor-pointer" type="delete" viewBox="0 0 20 20"/>
-    </nested-form-icon>
+    <Icon type="trash" v-if="field.children.length > field.min"
+          hover-color="danger"
+          @click="removeChild"/>
 </template>
 
 <script>

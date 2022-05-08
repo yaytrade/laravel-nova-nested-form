@@ -1,11 +1,7 @@
 <template>
-    <nested-form-icon
-        v-if="field.max === 0 || field.children.length < field.max"
-        hover-color="success"
-        @click="addChild"
-    >
-        <icon class="cursor-pointer" type="add" viewBox="1.5 2 20 20"/>
-    </nested-form-icon>
+    <Icon type="plus-circle" v-if="field.max === 0 || field.children.length < field.max"
+          hover-color="success"
+          @click="addChild"/>
 </template>
 
 <script>
