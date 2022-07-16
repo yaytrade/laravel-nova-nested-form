@@ -12,7 +12,7 @@ export default {
             return storage
                 .fetchAvailableResources(
                     this.resourceName,
-                    this.field.originalAttribute,
+                    this.field.belongsToRelationship,
                     this.queryParams
                 )
                 .then(({data: {resources, softDeletes, withTrashed}}) => {

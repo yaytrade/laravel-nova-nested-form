@@ -87,7 +87,7 @@ class NestedFormSchema implements JsonSerializable
                 return with(app(NovaRequest::class), function ($request) use ($field) {
                     $viewable = ! is_null($field->viewable) ? $field->viewable : $field->resourceClass::authorizedToViewAny($request);
 
-                    return array_merge([
+                    $data =  array_merge([
                         'belongsToId' => $field->belongsToId,
                         'relationshipType' => $field->relationshipType(),
                         'belongsToRelationship' => $field->belongsToRelationship,
@@ -121,6 +121,8 @@ class NestedFormSchema implements JsonSerializable
                         'wrapping' => $field->wrapping,
                         'displayedAs' => $field->displayedAs,
                     ]);
+
+                    return $data;
                 });
             }
 
