@@ -3,6 +3,8 @@
 namespace Handleglobal\NestedForm;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use JsonSerializable;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Field;
@@ -79,6 +81,48 @@ class NestedFormSchema implements JsonSerializable
             }
 
             $field->resolve($this->model);
+            if ($field instanceof BelongsTo) {
+                $this->setComponent($field);
+
+                return with(app(NovaRequest::class), function ($request) use ($field) {
+                    $viewable = ! is_null($field->viewable) ? $field->viewable : $field->resourceClass::authorizedToViewAny($request);
+
+                    return array_merge([
+                        'belongsToId' => $field->belongsToId,
+                        'relationshipType' => $field->relationshipType(),
+                        'belongsToRelationship' => $field->belongsToRelationship,
+                        'debounce' => $field->debounce,
+                        'displaysWithTrashed' => $field->displaysWithTrashed,
+                        'label' => $field->resourceClass::label(),
+                        'resourceName' => $field->resourceName,
+                        'reverse' => $field->isReverseRelation($request),
+                        'searchable' => $field->isSearchable($request),
+                        'withSubtitles' => $field->withSubtitles,
+                        'showCreateRelationButton' => $field->createRelationShouldBeShown($request),
+                        'singularLabel' => $field->singularLabel,
+                        'viewable' => $viewable,
+                        'uniqueKey' => sprintf(
+                            '%s-%s-%s',
+                            $field->attribute,
+                            Str::slug($field->panel ?? 'default'),
+                            $field->component()
+                        ), 'attribute' => $field->attribute, 'component' => $field->component(),
+                        'dependsOn' => $this->getDependentsAttributes($request), 'helpText' => $field->getHelpText(),
+                        'indexName' => $field->name, 'name' => $field->name, 'nullable' => $field->nullable,
+                        'panel' => $field->panel, 'prefixComponent' => true, 'readonly' => $field->isReadonly($request),
+                        'required' => $field->isRequired($request), 'sortable' => $field->sortable,
+//                        'sortableUriKey' => $field->sortableUriKey(),
+                        'stacked' => $field->stacked,
+                        'textAlign' => $field->textAlign,
+                        'validationKey' => $field->validationKey(),
+                        'usesCustomizedDisplay' => $field->usesCustomizedDisplay,
+                        'value' => $field->value,
+                        'visible' => $field->visible,
+                        'wrapping' => $field->wrapping,
+                        'displayedAs' => $field->displayedAs,
+                    ]);
+                });
+            }
 
             return $this->setComponent($field)->jsonSerialize();
         })->values();
@@ -87,6 +131,15 @@ class NestedFormSchema implements JsonSerializable
         $this->request->route()->setParameter('resource', $this->parentForm->viaResource);
 
         return $fields;
+    }
+
+    protected function getDependentsAttributes(NovaRequest $request)
+    {
+        return collect($this->fieldDependencies ?? [])->map(function ($dependsOn) {
+                return collect($dependsOn['attributes'])->mapWithKeys(function ($attribute) use ($dependsOn) {
+                    return [$attribute => optional(Arr::get($dependsOn, 'formData'))->get($attribute)];
+                })->all();
+            })->first() ?? null;
     }
 
     /**

@@ -480,7 +480,7 @@ class NestedForm extends Field implements RelatableField
      */
     protected function createChild(NovaRequest $request, $model, $child, $index, $requestAttribute, $relatedKeys)
     {
-        return (new ResourceStoreController)->handle($this->getCreateRequest($request, $model, $child, $index, $requestAttribute, $relatedKeys));
+        return (new ResourceStoreController)->__invoke($this->getCreateRequest($request, $model, $child, $index, $requestAttribute, $relatedKeys));
     }
 
     /**
@@ -488,7 +488,7 @@ class NestedForm extends Field implements RelatableField
      */
     protected function updateChild(NovaRequest $request, $model, $child, $index, $requestAttribute, $relatedKeys)
     {
-        return (new ResourceUpdateController)->handle($this->getUpdateRequest($request, $model, $child, $index, $requestAttribute, $relatedKeys));
+        return (new ResourceUpdateController)->__invoke($this->getUpdateRequest($request, $model, $child, $index, $requestAttribute, $relatedKeys));
     }
 
     /**
