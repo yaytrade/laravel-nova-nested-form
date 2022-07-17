@@ -106,7 +106,9 @@ class NestedFormSchema implements JsonSerializable
                             $field->attribute,
                             Str::slug($field->panel ?? 'default'),
                             $field->component()
-                        ), 'attribute' => $field->attribute, 'component' => $field->component(),
+                        ),
+                        'attribute' => $this->attribute($field->attribute),
+                        'component' => $field->component(),
                         'dependsOn' => $this->getDependentsAttributes($request), 'helpText' => $field->getHelpText(),
                         'indexName' => $field->name, 'name' => $field->name, 'nullable' => $field->nullable,
                         'panel' => $field->panel, 'prefixComponent' => true, 'readonly' => $field->isReadonly($request),
@@ -121,12 +123,13 @@ class NestedFormSchema implements JsonSerializable
                         'wrapping' => $field->wrapping,
                         'displayedAs' => $field->displayedAs,
                     ]);
-
                     return $data;
                 });
             }
 
-            return $this->setComponent($field)->jsonSerialize();
+            $data = $this->setComponent($field)->jsonSerialize();
+
+            return $data;
         })->values();
 
 
