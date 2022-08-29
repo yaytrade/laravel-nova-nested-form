@@ -17,7 +17,7 @@ Add package to your composer with git reference
 ```
 
 ```bash
-composer require handleglobal/nova-nested-form:dev-main
+composer require handleglobal/nova-nested-form:dev-master
 ```
 
 # Contributions
