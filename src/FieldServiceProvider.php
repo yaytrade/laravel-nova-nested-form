@@ -17,6 +17,7 @@ class FieldServiceProvider extends ServiceProvider
     {
         Nova::serving(function (ServingNova $event) {
             Nova::script('nova-nested-form', __DIR__ . '/../dist/js/field.js');
+            Nova::style('nova-nested-form', __DIR__ . '/../dist/css/field.css');
         });
     }
 
