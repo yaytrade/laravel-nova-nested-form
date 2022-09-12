@@ -97,7 +97,7 @@ export default {
             ) {
               acc =
                 acc !== null
-                  ? acc + " " + String(field[el[1]])
+                  ? acc + ", " + String(field[el[1]])
                   : String(field[el[1]]);
             }
           }
